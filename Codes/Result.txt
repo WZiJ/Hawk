@@ -1,0 +1,16 @@
+App Name	True Pos	False Pos	False Neg
+Monitor	0	0	0
+Humidifier	118	0	0
+LEDLamp	81	1	37
+IncandescentBulb	107	11	13
+ElectricCooker	122	0	2
+InductionCooker	116	0	2
+Kneader	119	0	1
+Stirrer	53	12	71
+SmartScreen	118	0	0
+FluorescentLamp	93	25	25
+Television	116	1	2
+Washer	116	0	0
+MicrowaveOven	568	0	0
+AirHeater	116	0	0
+ElectricKettle	116	0	0

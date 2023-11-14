@@ -1,0 +1,24 @@
+python ./Predict.py ../../../dataset/CreateDataSet/ 0
+IncandescentBulb [[0, 10000000]]
+ElectricCooker [[0, 10000000]]
+InductionCooker [[0, 10000000]]
+Stirrer [[0, 10000000]]
+SmartScreen [[0, 10000000]]
+Television [[4883, 7141], [16745, 35014], [40393, 44841], [50324, 58283], [61500, 63676]]
+Washer [[8210, 12474], [14598, 18871], [20990, 25297], [27428, 31673], [33930, 51371]]
+MicrowaveOven [[0, 10000000]]
+AirHeater [[0, 10000000]]
+ElectricKettle [[9270, 11412], [15654, 17805], [22061, 24237], [28483, 30609], [42654, 69121]]
+Monitor [ ]
+Monitor [ ]
+Humidifier [ 522, 23176, 36106, 43763, 52770, 62598, ]
+Humidifier [ 6058, 32864, 41592, 49215, 56138, 68061, ]
+LEDLamp [ 1585, 37173, 53830, ]
+LEDLamp [ 3707, 29546, 39295, 48019, 60403, 66863, ]
+Kneader [ ]
+Kneader [ ]
+FluorescentLamp [ ]
+FluorescentLamp [ 29544, ]
+Cycle number:	 70172
+Prepare time:	 1520.4107761383057
+Classification time:	 2823.076009750366

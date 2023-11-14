@@ -29,8 +29,12 @@ def ChanRanDatFormat(fieldVal, llPos, lrPos, rlPos, rrPos, downVal,  upperVal):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) < 3:
+        print("Usage: python Predict.py [path] [fileId]")
+        sys.exit(-1)
+        
     startTime = time.time()
-    print(f"python {sys.argv[0]} {sys.argv[1]}")
+    print(f"python {sys.argv[0]} {sys.argv[1]} {sys.argv[2]}")
     largeApps = []
     openUpper = []
     openDowner = []
@@ -77,7 +81,7 @@ if __name__ == '__main__':
         fFile.close()
 
     sumSubFile = np.load(
-        f'../Datasets/test-{sys.argv[1]}/SubSum30.npz', allow_pickle=False)
+        f'{sys.argv[1]}/test-{sys.argv[2]}/SubSum30.npz', allow_pickle=False)
 
     # read differential aggregated current for interval of 30 cycles(600ms)
     testDat = sumSubFile['SubSum']
