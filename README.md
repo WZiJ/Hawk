@@ -1,2 +1,2 @@
 # Hawk
-A noval NILM system
+A highly efficient non-intrusive load monitoring system you always wanted
