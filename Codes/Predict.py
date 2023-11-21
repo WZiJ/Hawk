@@ -3,6 +3,7 @@ import numpy as np
 from numpy import fft
 import sys
 import time
+import pickle
 
 # The input to model just 0-9th harmonics
 RemainLen = 10
@@ -14,19 +15,6 @@ def sortAlgorithm(a):
 
 def sortAlgorithm1(a):
     return a[1]
-
-
-def ChanRanDatFormat(fieldVal, llPos, lrPos, rlPos, rrPos, downVal,  upperVal):
-    fieldVal = np.concatenate(
-        (fieldVal[llPos:lrPos], fieldVal[rlPos:rrPos]), axis=0)
-    fftVal = fft.fft(fieldVal)[:RemainLen] / (len(fieldVal) / 2 + 1)
-    fftV0 = np.abs(fftVal[1])
-    if fftV0 > upperVal or fftV0 < downVal:
-        return np.zeros((3*RemainLen))
-    feature = np.concatenate(
-        (np.abs(fftVal), np.imag(fftVal), np.real(fftVal)), axis=0)
-    return feature
-
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
@@ -89,8 +77,9 @@ if __name__ == '__main__':
     # load model
     allModel = xgboost.Booster()
     allModel.load_model('../Models/all.model')
-
+    
     littleModels = []
+
     for i in range(len(littleApps) * 2):
         littleModels.append(xgboost.Booster())
         littleModels[i].load_model(f'../Models/little-{i}.model')
@@ -107,6 +96,7 @@ if __name__ == '__main__':
     testFFTDat[:, RemainLen*2] += testFFTDat[:, RemainLen*2 + 1]
 
     littleFeaList = []
+    print(llPosList[0], lrPosList[0], rlPosList[0], rrPosList[-0])
     for i in range(len(littleApps)):
         cutFeature = np.concatenate(
             (testDat[:, llPosList[i]:lrPosList[i]], testDat[:, rlPosList[i]:rrPosList[i]]), axis=1)
@@ -114,9 +104,6 @@ if __name__ == '__main__':
             :, :RemainLen] / (len(cutFeature[0]) / 2 + 1)
         shortFFT = np.concatenate(
             (np.abs(shortFFT), np.imag(shortFFT), np.real(shortFFT)), axis=1)
-        shortFFT[:, 0] = shortFFT[:, 0] + shortFFT[:, 1]
-        shortFFT[:, RemainLen] += shortFFT[:, RemainLen + 1]
-        shortFFT[:, RemainLen*2] += shortFFT[:, RemainLen*2 + 1]
         littleFeaList.append(shortFFT)
 
     prePareTime = (time.time() - startTime) * 1000
@@ -209,10 +196,14 @@ if __name__ == '__main__':
         testdd = xgboost.DMatrix(littleFeaList[i])
         pred1 = littleModels[i * 2].predict(testdd)
         predPossibLists.append(pred1)
+        if i == 0:
+            print('==',np.sum(pred1))
 
         testdd = xgboost.DMatrix(littleFeaList[i])
         pred2 = littleModels[i * 2 + 1].predict(testdd)
         predPossibLists.append(pred2)
+        if i == 0:
+            print('==',np.sum(pred2))
 
     littlePos = [[] for i in range(len(littleApps) * 2)]
     for l in range(len(resul)):
@@ -328,5 +319,5 @@ if __name__ == '__main__':
             print(littlePos[i][littleEventList[i][j]], end=', ')
         print(']')
     print("Cycle number:\t", testFFTDat.shape[0])
-    print("Prepare time:\t", prePareTime)
-    print("Classification time:\t", (time.time() - startTime) * 1000)
+    print("Prepare time:\t", prePareTime, "ms")
+    print("Classification time:\t", (time.time() - startTime) * 1000, "ms")

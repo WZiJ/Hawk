@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.18)
+project(hello LANGUAGES C CXX VERSION 1)
+find_package(xgboost REQUIRED)
+add_executable(hello ./main.c)
+target_link_libraries(hello fftw3)
+target_link_libraries(hello xgboost::xgboost)
+target_link_libraries(hello m)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
