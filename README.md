@@ -15,7 +15,7 @@ Before running the Python scripts, ensure that `xgboost` and `numpy` are install
 - `Result`: For storing current prediction results.
 
 ## Note
-Reviewers may comment on the style of the code, but the results of the data are unquestionable.
+Reviewers may complain the style of the code, but the results of the data are reliable.
 
 We believe our code is robust and has significant room for improvement.
 
