@@ -1,4 +1,4 @@
-python ./Predict.py ../../../dataset/CreateDataSet/ 2
+python ./Predict.py ../Datasets 2
 IncandescentBulb [[0, 10000000]]
 ElectricCooker [[0, 10000000]]
 InductionCooker [[0, 10000000]]
@@ -9,16 +9,16 @@ Washer [[0, 10000000]]
 MicrowaveOven [[0, 10000000]]
 AirHeater [[0, 10000000]]
 ElectricKettle [[0, 10000000]]
-Monitor [ 5006, 5317, 17515, 44560, 54452, 67160, 72711, 73498, ]
-Monitor [ 5209, 7135, 38800, 38959, 48711, 48831, 58069, 62469, 62622, 69149, 69209, 72968, 73756, 74646, ]
+Monitor [ ]
+Monitor [ ]
 Humidifier [ ]
 Humidifier [ ]
 LEDLamp [ ]
 LEDLamp [ ]
 Kneader [ 2630, 21239, 42022, 59221, 63549, ]
-Kneader [ 14189, 28261, 50870, 61402, 71309, ]
+Kneader [ 14189, 28258, 50870, 61399, 71309, ]
 FluorescentLamp [ 9283, 16313, 23370, 30383, 46579, ]
 FluorescentLamp [ 11420, 18438, 25488, 33859, 75768, ]
 Cycle number:	 76821
-Prepare time:	 1718.1727886199951 ms
-Classification time:	 2715.839624404907 ms
+Prepare time:	 2704.439163208008 ms
+Classification time:	 2909.149169921875 ms

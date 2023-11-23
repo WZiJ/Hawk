@@ -11,14 +11,14 @@ AirHeater [[0, 18333], [36279, 51850], [56247, 60818], [74911, 89424], [113467, 
 ElectricKettle [[5791, 10083], [14752, 28382], [42215, 64438], [78483, 93437], [119442, 136521]]
 Monitor [ ]
 Monitor [ ]
-Humidifier [ 62312, 76006, 90920, 104675, 145076, ]
+Humidifier [ 62313, 76006, 90920, 104675, 145076, ]
 Humidifier [ 53043, 67124, 81154, 95725, 109887, ]
-LEDLamp [ ]
+LEDLamp [ 55188, 69262, 83679, 97865, ]
 LEDLamp [ 59753, 88358, ]
 Kneader [ ]
 Kneader [ ]
 FluorescentLamp [ 128002, ]
-FluorescentLamp [ 35215, 59756, ]
+FluorescentLamp [ 35215, ]
 Cycle number:	 146118
-Prepare time:	 3172.555685043335
-Classification time:	 5178.286075592041
+Prepare time:	 2813.1802082061768 ms
+Classification time:	 3955.9409618377686 ms

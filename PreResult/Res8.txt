@@ -13,12 +13,12 @@ Monitor [ ]
 Monitor [ ]
 Humidifier [ 9048, 23372, 115524, 129681, 144628, ]
 Humidifier [ 4476, 18699, 61108, 125006, 139548, ]
-LEDLamp [ 146787, ]
-LEDLamp [ 98016, 122355, 136894, ]
+LEDLamp [ 40382, 118077, 146785, ]
+LEDLamp [ 98015, 122357, 136894, ]
 Kneader [ ]
 Kneader [ ]
-FluorescentLamp [ 11465, 118075, 132216, ]
-FluorescentLamp [ 1820, 16045, 63327, 98019, ]
+FluorescentLamp [ 11465, 132216, ]
+FluorescentLamp [ 16045, 63327, 134570, ]
 Cycle number:	 150006
-Prepare time:	 3690.0506019592285
-Classification time:	 5028.544187545776
+Prepare time:	 3479.4063568115234 ms
+Classification time:	 5056.874752044678 ms

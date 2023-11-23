@@ -1,4 +1,4 @@
-python ./Predict.py ../../../dataset/CreateDataSet/ 1
+python ./Predict.py ../Datasets 1
 IncandescentBulb [[481, 5789], [23955, 34374], [37581, 43691], [46018, 49611], [55361, 58535], [64927, 70246]]
 ElectricCooker [[1534, 3660], [10327, 30764], [39037, 41158], [48550, 50670], [56414, 62789], [67060, 69185]]
 InductionCooker [[4732, 6859], [17141, 36518], [42634, 47089], [53204, 60668], [63865, 65999]]
@@ -20,5 +20,5 @@ Kneader [ ]
 FluorescentLamp [ ]
 FluorescentLamp [ ]
 Cycle number:	 72336
-Prepare time:	 2039.5843982696533 ms
-Classification time:	 2384.4757080078125 ms
+Prepare time:	 2646.047353744507 ms
+Classification time:	 2634.709596633911 ms
