@@ -1,29 +1,22 @@
 # Hawk, A highly efficient non-intrusive load monitoring system you always wanted
 
-## Introduction
-For the review process, we provide access to the complete Hawk model, select portions of the code, and a subset of the dataset, along with various result logs that we have compiled in the past.
+## Quick Start
+To quickly use and verify the system, please execute or refer to the `run-pred.sh` script located in the `Codes` directory.
 
-The "Codes" folder contains code and execution scripts, including a separate folder for performance validation code.
+## Installation Requirements
+Before running the Python scripts, ensure that `xgboost` and `numpy` are installed on your system. For running the performance testing part of the code, you need to compile and install the XGBoost C API following the official documentation: [XGBoost C API Tutorial](https://github.com/dmlc/xgboost/blob/master/doc/tutorials/c_api_tutorial.rst#install-xgboost-on-conda-environment). Additionally, install `fftw` from its official website: [FFTW](https://www.fftw.org/).
 
-In the "Datasets" folder, there are two dataset files; upon publication of our paper, we will make public the download methods for all datasets.
+## Project Structure
+- `Codes`: Contains code and run scripts.
+- `Datasets`: Two dataset files are located here. The full dataset will be made available for download upon publication of the paper.
+- `GroundTruth`: Stores annotation data for 18 datasets corresponding to the intervals when appliances were turned on, for comparison with output results.
+- `Models`: Pre-trained models are stored here.
+- `PreResult`: Contains results inferred from the complete dataset using these codes and models.
+- `Result`: For storing current prediction results.
 
-The "GroundTruth" folder holds annotation data for 18 datasets, indicating intervals when appliances were turned on, serving as a reference for output results.
+## Note
+Reviewers may comment on the style of the code, but the results of the data are unquestionable.
 
-The "Models" folder contains pre-trained models.
+We believe our code is robust and has significant room for improvement.
 
-"PreResult" houses the inference results obtained from applying these codes and models on the complete dataset.
-
-"Result" is designated for storing current prediction outcomes.
-
-Reviewers might critique our code style, but the integrity of our data results is indisputable. We believe that our code is robust and has significant potential for improvement.
-
-We welcome any questions or feedback.
-
-
-### Prerequisites
-To run the Python scripts, you need to pre-install `xgboost` and `numpy`.
-
-For executing the performance test code, you will need to compile and install the XGBoost C API by following the official documentation available at: [XGBoost C API Tutorial](https://github.com/dmlc/xgboost/blob/master/doc/tutorials/c_api_tutorial.rst#install-xgboost-on-conda-environment). Additionally, installation of FFTW (Fastest Fourier Transform in the West) is required, which can be found on its official website: [FFTW](https://www.fftw.org/).
-
-## Usage
-For rapid utilization and verification, please execute or refer to the run-pred.sh script in the Codes directory.
+Any queries or suggestions are welcome.
