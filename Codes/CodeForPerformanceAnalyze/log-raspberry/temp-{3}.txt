@@ -1,0 +1,1 @@
+taskset -c 1 ./hello > ./log/temp2-{$n}.txt  359.13s user 24.22s system 99% cpu 6:24.21 total

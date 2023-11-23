@@ -3,7 +3,6 @@ import numpy as np
 from numpy import fft
 import sys
 import time
-import pickle
 
 # The input to model just 0-9th harmonics
 RemainLen = 10
@@ -43,6 +42,10 @@ if __name__ == '__main__':
     openDowner = []
     closeUpper = []
     closeDowner = []
+    lOpenUpper = []
+    lOpenDowner = []
+    lCloseUpper = []
+    lCloseDowner = []
     with open('./appFeature.cfg', 'r') as fFile:
         pos = 0
         while True:
@@ -54,6 +57,10 @@ if __name__ == '__main__':
             appNameList.append(conts[0])
             if len(conts[11]) > 1:
                 littleApps.append(conts[0])
+                lOpenDowner.append(int(conts[6]))
+                lOpenUpper.append(int(conts[7]))
+                lCloseDowner.append(int(conts[8]))
+                lCloseUpper.append(int(conts[9]))
                 llPosList.append(int(conts[11]))
                 lrPosList.append(int(conts[12]))
                 rlPosList.append(int(conts[13]))
@@ -90,13 +97,14 @@ if __name__ == '__main__':
     testFFTDat = np.concatenate(
         (np.abs(testDat_fft), np.imag(testDat_fft), np.real(testDat_fft)), axis=1)
 
+
+
     # This is a trick, we train and test with this transform
     testFFTDat[:, 0] = testFFTDat[:, 0] + testFFTDat[:, 1]
     testFFTDat[:, RemainLen] += testFFTDat[:, RemainLen + 1]
     testFFTDat[:, RemainLen*2] += testFFTDat[:, RemainLen*2 + 1]
 
     littleFeaList = []
-    print(llPosList[0], lrPosList[0], rlPosList[0], rrPosList[-0])
     for i in range(len(littleApps)):
         cutFeature = np.concatenate(
             (testDat[:, llPosList[i]:lrPosList[i]], testDat[:, rlPosList[i]:rrPosList[i]]), axis=1)
@@ -196,14 +204,10 @@ if __name__ == '__main__':
         testdd = xgboost.DMatrix(littleFeaList[i])
         pred1 = littleModels[i * 2].predict(testdd)
         predPossibLists.append(pred1)
-        if i == 0:
-            print('==',np.sum(pred1))
 
         testdd = xgboost.DMatrix(littleFeaList[i])
         pred2 = littleModels[i * 2 + 1].predict(testdd)
         predPossibLists.append(pred2)
-        if i == 0:
-            print('==',np.sum(pred2))
 
     littlePos = [[] for i in range(len(littleApps) * 2)]
     for l in range(len(resul)):
@@ -213,7 +217,13 @@ if __name__ == '__main__':
 
             for k in range(len(predPossibLists)):
                 if predPossibLists[k][l] > 0.5:
-                    littlePos[k].append(l)
+                    if k % 2 == 0:
+                        if littleFeaList[int(k/2)][l][1] > lOpenDowner[int(k/2)] and littleFeaList[int(k/2)][l][1] < lOpenUpper[int(k/2)]:
+                            littlePos[k].append(l)
+                    else:
+                        if littleFeaList[int(k/2)][l][1] > lCloseDowner[int(k/2)] and littleFeaList[int(k/2)][l][1] < lCloseUpper[int(k/2)]:
+                            littlePos[k].append(l)
+
 
     voteNumList = [12, 12, 10, 10, 10, 8, 6, 6, 10, 10]
     for i in range(len(littlePos)):
@@ -233,85 +243,6 @@ if __name__ == '__main__':
         print(i, len(littlePos), voteNumList[i])
         print(str(e))
         sys.exit(-1)
-    led1Open = littleEventList[2]
-    led2Open = littleEventList[4]
-    littleEventList[2] = []
-    littleEventList[4] = []
-    led1Ind = 0
-    led2Ind = 0
-    while True:
-        if led1Ind == len(led1Open) or led2Ind == len(led2Open):
-            break
-        if abs(littlePos[2][led1Open[led1Ind]] - littlePos[4][led2Open[led2Ind]]) < 30:
-            voteNum1 = 0
-            for voteNum1 in range(30):
-                if littlePos[2][voteNum1 + led1Open[led1Ind]] > littlePos[2][led1Open[led1Ind]] + 30:
-                    break
-            for voteNum2 in range(30):
-                if littlePos[4][voteNum2 + led2Open[led2Ind]] > littlePos[4][led2Open[led2Ind]] + 30:
-                    break
-            if voteNum2 > voteNum1:
-                littleEventList[4].append(led2Open[led2Ind])
-            elif voteNum1 > voteNum2:
-                littleEventList[2].append(led1Open[led1Ind])
-            else:
-                print(voteNum1, voteNum2)
-                print(littlePos[2][led1Open[led1Ind]])
-                print(littlePos[4][led2Open[led2Ind]])
-                print("Error")
-            led1Ind += 1
-            led2Ind += 1
-        else:
-            if littlePos[2][led1Open[led1Ind]] < littlePos[4][led2Open[led2Ind]]:
-                littleEventList[2].append(led1Open[led1Ind])
-                led1Ind += 1
-            else:
-                littleEventList[4].append(led2Open[led2Ind])
-                led2Ind += 1
-    for t in range(led1Ind, len(led1Open)):
-        littleEventList[2].append(led1Open[t])
-    for t in range(led2Ind, len(led2Open)):
-        littleEventList[4].append(led2Open[t])
-
-    led1Close = littleEventList[3]
-    led2Close = littleEventList[5]
-    littleEventList[3] = []
-    littleEventList[5] = []
-    led1Ind = 0
-    led2Ind = 0
-    while True:
-        if led1Ind == len(led1Close) or led2Ind == len(led2Close):
-            break
-        if abs(littlePos[3][led1Close[led1Ind]] - littlePos[5][led2Close[led2Ind]]) < 30:
-            voteNum1 = 0
-            for voteNum1 in range(30):
-                if littlePos[3][voteNum1 + led1Close[led1Ind]] > littlePos[3][led1Close[led1Ind]] + 30:
-                    break
-            for voteNum2 in range(30):
-                if littlePos[5][voteNum2 + led2Close[led2Ind]] > littlePos[5][led2Close[led2Ind]] + 30:
-                    break
-            if voteNum2 > voteNum1:
-                littleEventList[5].append(led2Close[led2Ind])
-            elif voteNum1 > voteNum2:
-                littleEventList[3].append(led1Close[led1Ind])
-            else:
-                print(voteNum1, voteNum2)
-                print(littlePos[3][led1Close[led1Ind]])
-                print(littlePos[5][led2Close[led2Ind]])
-                print("Error")
-            led1Ind += 1
-            led2Ind += 1
-        else:
-            if littlePos[3][led1Close[led1Ind]] < littlePos[5][led2Close[led2Ind]]:
-                littleEventList[3].append(led1Close[led1Ind])
-                led1Ind += 1
-            else:
-                littleEventList[5].append(led2Close[led2Ind])
-                led2Ind += 1
-    for t in range(led1Ind, len(led1Close)):
-        littleEventList[3].append(led1Close[t])
-    for t in range(led2Ind, len(led2Close)):
-        littleEventList[5].append(led2Close[t])
 
     for i in range(len(littlePos)):
         print(littleApps[int(i / 2)] + ' [', end=' ')

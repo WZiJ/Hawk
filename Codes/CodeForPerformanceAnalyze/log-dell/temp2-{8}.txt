@@ -1,0 +1,2 @@
+./Models/all.model
+cpu_time_used = 58.906499 

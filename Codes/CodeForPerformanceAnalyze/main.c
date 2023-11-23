@@ -44,6 +44,9 @@ void convertFormat2(fftw_complex *fftIn, int width)
 
 int main(int argc, char **argv)
 {
+  if(argc < 2){
+    printf("Error, Usage %s [file that contain model files]")
+  }
   FILE *file = fopen("data.bin", "rb");
   if (file == NULL)
   {
