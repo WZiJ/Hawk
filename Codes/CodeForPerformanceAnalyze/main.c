@@ -33,8 +33,8 @@ void convertFormat2(fftw_complex *fftIn, int width)
 {
   for (int i = 0; i < 10; i++)
   {
-    modelInput[i + 10] = fftIn[i][1] / 161;
-    modelInput[i + 20] = fftIn[i][0] / 161;
+    modelInput[i + 10] = fftIn[i][1] / width;
+    modelInput[i + 20] = fftIn[i][0] / width;
     modelInput[i] = sqrt(modelInput[i + 10] * modelInput[i + 10] + modelInput[i + 20] * modelInput[i + 20]);
   }
   modelInput[0] = modelInput[0] + modelInput[1];
